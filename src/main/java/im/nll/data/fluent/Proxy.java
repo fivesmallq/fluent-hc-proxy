@@ -1,6 +1,7 @@
 package im.nll.data.fluent;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 
 /**
  * Simple wrapper for a proxy in form [username[:password]]@host[:port]
@@ -59,6 +60,15 @@ public class Proxy {
 
     public int getPort() {
         return port == null ? DEFAULT_PORT : port;
+    }
+
+    /**
+     * get httpclient httphost
+     *
+     * @return
+     */
+    public HttpHost getHttpHost() {
+        return new HttpHost(getIp(), getPort());
     }
 
     @Override
