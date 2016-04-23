@@ -17,10 +17,14 @@ public class Proxies {
 
     public Response execute(String proxy, Request request) throws IOException {
         Proxy p = Proxy.parse(proxy);
-        HttpHost httpHost = p.getHttpHost();
-        executor.auth(httpHost, p.getUsername(), p.getPassword());
+        return execute(p, request);
+    }
+
+    public Response execute(Proxy proxy, Request request) throws IOException {
+        HttpHost httpHost = proxy.getHttpHost();
+        executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
         executor.authPreemptiveProxy(httpHost);
-        request.viaProxy(p.getHttpHost());
+        request.viaProxy(httpHost);
         return executor.execute(request);
     }
 }
