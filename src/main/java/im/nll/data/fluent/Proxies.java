@@ -6,6 +6,8 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author <a href="mailto:fivesmallq@gmail.com">fivesmallq</a>
@@ -13,21 +15,22 @@ import java.io.IOException;
  * @date 16/4/11 下午7:13
  */
 public class Proxies {
-    private Proxy proxy;
+    private List<Proxy> proxies;
     private Executor executor = Executor.newInstance();
+    private ProxySelector proxySelector;
 
-    public Proxies(Proxy proxy) {
-        this.proxy = proxy;
+    public Proxies(Proxy... proxies) {
+        this.proxies = Arrays.asList(proxies);
     }
 
     /**
-     * create proxies instance with proxy.
+     * create instance with proxies.
      *
-     * @param proxy
+     * @param proxies
      * @return
      */
-    public static Proxies of(Proxy proxy) {
-        return new Proxies(proxy);
+    public static Proxies of(Proxy... proxies) {
+        return new Proxies(proxies);
     }
 
     /**
@@ -53,7 +56,7 @@ public class Proxies {
      * @throws IOException
      */
     public Response execute(Request request) throws IOException {
-        return execute(proxy, request);
+        return execute(proxySelector.select(request), request);
     }
 
     public Response execute(String proxy, Request request) throws IOException {
