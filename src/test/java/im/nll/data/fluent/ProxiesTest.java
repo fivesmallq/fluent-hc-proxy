@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ProxiesTest {
     @Test
     public void of() throws Exception {
-        Proxies.of("").execute(Request.Get(""));
+        Proxies.of("127.0.0.1:8080").execute(Request.Get("http://www.baidu.com"));
     }
 
     @Test

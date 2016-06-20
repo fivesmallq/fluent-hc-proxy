@@ -17,7 +17,7 @@ import java.util.List;
 public class Proxies {
     private List<Proxy> proxies;
     private Executor executor = Executor.newInstance();
-    private ProxySelector proxySelector;
+    private ProxySelector proxySelector = new DefaultProxySelector();
 
     public Proxies(Proxy... proxies) {
         this.proxies = Arrays.asList(proxies);
@@ -65,10 +65,12 @@ public class Proxies {
     }
 
     public Response execute(Proxy proxy, Request request) throws IOException {
-        HttpHost httpHost = proxy.getHttpHost();
-        executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
-        executor.authPreemptiveProxy(httpHost);
-        request.viaProxy(httpHost);
+        if (proxy != null) {
+            HttpHost httpHost = proxy.getHttpHost();
+            executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
+            executor.authPreemptiveProxy(httpHost);
+            request.viaProxy(httpHost);
+        }
         return executor.execute(request);
     }
 
