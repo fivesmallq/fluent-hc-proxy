@@ -84,8 +84,10 @@ public class Proxies {
     public Response execute(Proxy proxy, Request request) throws IOException {
         if (proxy != null) {
             HttpHost httpHost = proxy.getHttpHost();
-            executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
-            executor.authPreemptiveProxy(httpHost);
+            if (proxy.hasAuthentication()) {
+                executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
+                executor.authPreemptiveProxy(httpHost);
+            }
             request.viaProxy(httpHost);
         }
         return executor.execute(request);
