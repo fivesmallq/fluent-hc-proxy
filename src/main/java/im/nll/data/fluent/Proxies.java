@@ -1,5 +1,7 @@
 package im.nll.data.fluent;
 
+import im.nll.data.fluent.strategy.SequenceSwitchStrategy;
+import im.nll.data.fluent.strategy.SwitchStrategy;
 import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
@@ -18,9 +20,14 @@ public class Proxies {
     private List<Proxy> proxies;
     private Executor executor = Executor.newInstance();
     private ProxySelector proxySelector = new DefaultProxySelector();
+    private SwitchStrategy switchStrategy = new SequenceSwitchStrategy();
 
     public Proxies(Proxy... proxies) {
         this.proxies = Arrays.asList(proxies);
+    }
+
+    public Proxies(List<Proxy> proxies) {
+        this.proxies = proxies;
     }
 
     /**
@@ -30,6 +37,16 @@ public class Proxies {
      * @return
      */
     public static Proxies of(Proxy... proxies) {
+        return new Proxies(proxies);
+    }
+
+    /**
+     * create instance with proxies.
+     *
+     * @param proxies
+     * @return
+     */
+    public static Proxies of(List<Proxy> proxies) {
         return new Proxies(proxies);
     }
 
@@ -56,7 +73,7 @@ public class Proxies {
      * @throws IOException
      */
     public Response execute(Request request) throws IOException {
-        return execute(proxySelector.select(request), request);
+        return execute(switchStrategy.switchy(proxies), request);
     }
 
     public Response execute(String proxy, Request request) throws IOException {

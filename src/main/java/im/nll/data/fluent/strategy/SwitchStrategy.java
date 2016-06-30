@@ -1,4 +1,6 @@
-package im.nll.data.fluent;
+package im.nll.data.fluent.strategy;
+
+import im.nll.data.fluent.Proxy;
 
 import java.util.List;
 
