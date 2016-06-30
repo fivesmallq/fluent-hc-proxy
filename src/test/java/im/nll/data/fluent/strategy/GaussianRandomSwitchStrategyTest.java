@@ -26,7 +26,7 @@ public class GaussianRandomSwitchStrategyTest {
         }
     }
 
-    @Test
+
     public void testDelay() throws Exception {
         int count = 20_000; // Generated random numbers
         double lowest = 0;  // For statistics

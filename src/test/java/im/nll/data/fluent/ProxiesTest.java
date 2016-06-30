@@ -1,5 +1,6 @@
 package im.nll.data.fluent;
 
+import im.nll.data.fluent.selector.ProxySelector;
 import org.apache.http.client.fluent.Request;
 import org.junit.Test;
 
@@ -11,7 +12,10 @@ import org.junit.Test;
 public class ProxiesTest {
     @Test
     public void of() throws Exception {
-        Proxies.of("127.0.0.1:8080").execute(Request.Get("http://www.baidu.com"));
+        Proxies.of("127.0.0.1:7777")
+                .selector(ProxySelector.LOCAL_NO_PROXY_SELECTOR)
+                .switchRandom()
+                .execute(Request.Get("http://www.baidu.com/"));
     }
 
     @Test
