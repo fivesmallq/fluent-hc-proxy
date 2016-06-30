@@ -13,7 +13,7 @@ public class SequenceSwitchStrategy implements SwitchStrategy {
     private int index = 0;
 
     @Override
-    public Proxy switchy(List<Proxy> proxies) {
+    public synchronized Proxy switchy(List<Proxy> proxies) {
         Proxy proxy = proxies.get(index);
         index++;
         if (index > proxies.size() - 1) {

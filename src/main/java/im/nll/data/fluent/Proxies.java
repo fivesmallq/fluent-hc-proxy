@@ -9,6 +9,8 @@ import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +23,7 @@ import java.util.List;
  * @date 16/4/11 下午7:13
  */
 public class Proxies {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Proxies.class);
     private List<Proxy> proxies;
     private Executor executor = Executor.newInstance();
     private ProxySelector proxySelector = null;
@@ -130,8 +133,8 @@ public class Proxies {
     public Response execute(Proxy proxy, Request request) throws IOException {
         if (proxy != null) {
             boolean useProxy = true;
+            String urlLine = request.toString();
             if (proxySelector != null) {
-                String urlLine = request.toString();
                 String url = StringUtils.substringBetween(urlLine, " ", " ");
                 useProxy = proxySelector.select(new URL(url));
             }
@@ -141,6 +144,7 @@ public class Proxies {
                     executor.auth(httpHost, proxy.getUsername(), proxy.getPassword());
                     executor.authPreemptiveProxy(httpHost);
                 }
+                LOGGER.info("user proxy: '{}'", proxy);
                 request.viaProxy(httpHost);
             }
         }

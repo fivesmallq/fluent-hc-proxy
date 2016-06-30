@@ -16,7 +16,7 @@ public class RandomSwitchStrategy implements SwitchStrategy {
     private Random random = new Random();
 
     @Override
-    public Proxy switchy(List<Proxy> proxies) {
+    public synchronized Proxy switchy(List<Proxy> proxies) {
         int index = random.nextInt(proxies.size());
         return proxies.get(index);
     }

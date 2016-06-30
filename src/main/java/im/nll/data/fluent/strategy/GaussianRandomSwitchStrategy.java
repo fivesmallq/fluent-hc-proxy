@@ -16,7 +16,7 @@ public class GaussianRandomSwitchStrategy implements SwitchStrategy {
     private int delay = 1;
 
     @Override
-    public Proxy switchy(List<Proxy> proxies) {
+    public synchronized Proxy switchy(List<Proxy> proxies) {
         int size = proxies.size();
         range = size / 2;
         //System.out.println("gaussian:"+Math.abs(this.random.nextGaussian()));
