@@ -45,4 +45,4 @@ dependencies {
 
 #Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/fivesmallq/web-data-extractor.
+Bug reports and pull requests are welcome on GitHub at https://github.com/fivesmallq/fluent-hc-proxy.
