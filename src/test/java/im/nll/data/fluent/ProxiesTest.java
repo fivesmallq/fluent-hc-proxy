@@ -16,10 +16,9 @@ import java.util.List;
 public class ProxiesTest {
     @Test
     public void of() throws Exception {
-        List<Proxy> proxies = Lists.newLinkedList();
+        List<String> proxies = Lists.newLinkedList();
         for (int i = 0; i < 10; i++) {
-            Proxy proxy = Proxy.parse(i + "username:password@127.0.0.1:7777");
-            proxies.add(proxy);
+            proxies.add(i + "username:password@127.0.0.1:7777");
         }
         ConCurrentUtil.init(10);
         Proxies proxiesExecuter = Proxies.of(proxies)
@@ -44,7 +43,11 @@ public class ProxiesTest {
 
     @Test
     public void executor() throws Exception {
-
+        Proxies executor = Proxies
+                .of(Lists.newArrayList("127.0.0.1:7777", "root:pwd@127.0.0.1:8888"))
+                .switchSequence();
+        executor.execute(Request.Get("http://www.douban.com"));// will use proxy 1
+        executor.execute(Request.Get("http://www.douban.com"));// will use proxy 2
     }
 
     @Test

@@ -1,5 +1,6 @@
 package im.nll.data.fluent;
 
+import com.google.common.collect.Lists;
 import im.nll.data.fluent.selector.ProxySelector;
 import im.nll.data.fluent.strategy.RandomSwitchStrategy;
 import im.nll.data.fluent.strategy.SequenceSwitchStrategy;
@@ -33,8 +34,12 @@ public class Proxies {
         this.proxies = Arrays.asList(proxies);
     }
 
-    public Proxies(List<Proxy> proxies) {
-        this.proxies = proxies;
+    public Proxies(List<String> proxies) {
+        List<Proxy> list = Lists.newLinkedList();
+        for (String proxy : proxies) {
+            list.add(Proxy.parse(proxy));
+        }
+        this.proxies = list;
     }
 
     /**
@@ -53,7 +58,7 @@ public class Proxies {
      * @param proxies
      * @return
      */
-    public static Proxies of(List<Proxy> proxies) {
+    public static Proxies of(List<String> proxies) {
         return new Proxies(proxies);
     }
 
@@ -94,6 +99,15 @@ public class Proxies {
         return this;
     }
 
+    /**
+     * set sequence proxy switch strategy.
+     *
+     * @return
+     */
+    public Proxies switchSequence() {
+        this.switchStrategy = new RandomSwitchStrategy();
+        return this;
+    }
     /**
      * set random proxy switch strategy.
      *
