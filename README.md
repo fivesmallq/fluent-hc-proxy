@@ -34,12 +34,20 @@ dependencies {
 ### request url with different proxy.
 
 ````java
-     Proxies executor = Proxies
-                .of(Lists.newArrayList("127.0.0.1:7777", "root:pwd@127.0.0.1:8888"))
-                .switchSequence();
+     Proxies executor=Proxies
+        .of(Lists.newArrayList("127.0.0.1:7777","root:pwd@127.0.0.1:8888"))
+        .switchSequence();
         executor.execute(Request.Get("http://www.douban.com"));// will use proxy 1
         executor.execute(Request.Get("http://www.douban.com"));// will use proxy 2
 ````
+
+### request url with proxy simple
+
+```java
+   String proxy="root:pwd@127.0.0.1:8888";
+        HttpResponse httpResponse=Proxies.of(finalProxy).execute(Request.Get("http://httpbin.org/anything")).returnResponse();
+
+```
 
 # Contributing
 
