@@ -4,21 +4,20 @@
 
 Simplify switching multiple proxies.
 
-#Futures:
+# Futures:
 
- * proxy switch strategy: sequence, random, gussian random.
- * proxy selector: 
- * proxy author simplify.
+* proxy switch strategy: sequence, random, gussian random.
+* proxy selector: chosen which url use proxy
+* proxy author simplify.
 
-
-#Usage
+# Usage
 To add a dependency on Web-Data-Extractor using Maven, use the following:
 
 ```xml
 <dependency>
     <groupId>im.nll.data</groupId>
     <artifactId>fluent-hc-proxy</artifactId>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
 </dependency>
 ```
 
@@ -26,12 +25,11 @@ To add a dependency using Gradle:
 
 ```
 dependencies {
-  compile 'im.nll.data:fluent-hc-proxy:0.9.0'
+  compile 'im.nll.data:fluent-hc-proxy:0.9.1'
 }
 ```
 
-
-#Examples
+# Examples
 
 ### request url with different proxy.
 
@@ -43,6 +41,6 @@ dependencies {
         executor.execute(Request.Get("http://www.douban.com"));// will use proxy 2
 ````
 
-#Contributing
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/fivesmallq/fluent-hc-proxy.
