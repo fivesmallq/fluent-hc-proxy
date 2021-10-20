@@ -45,7 +45,7 @@ dependencies {
 
 ```java
    String proxy="root:pwd@127.0.0.1:8888";
-        HttpResponse httpResponse=Proxies.of(finalProxy).execute(Request.Get("http://httpbin.org/anything")).returnResponse();
+        HttpResponse httpResponse=Proxies.of(proxy).execute(Request.Get("http://httpbin.org/anything")).returnResponse();
 
 ```
 
