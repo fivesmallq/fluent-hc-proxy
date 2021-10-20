@@ -41,11 +41,12 @@ dependencies {
         executor.execute(Request.Get("http://www.douban.com"));// will use proxy 2
 ````
 
-### request url with proxy simple
+### request url with proxy simple and reuse executor
 
 ```java
-   String proxy="root:pwd@127.0.0.1:8888";
-        HttpResponse httpResponse=Proxies.of(proxy).execute(Request.Get("http://httpbin.org/anything")).returnResponse();
+   Executor customExecutor=Executor.newInstance();
+        String proxy="root:pwd@127.0.0.1:8888";
+        Proxies.of(proxy).executor(customExecutor).execute(Request.Get("http://httpbin.org/anything"));
 
 ```
 
